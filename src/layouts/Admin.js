@@ -10,7 +10,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 // core components
-//...
+import Search from '../components/Search';
 
 const drawerWidth = 240;
 const drawerHeight = 64;
@@ -23,6 +23,12 @@ const Layout = styled.div`
 const StyledAppBar = styled(AppBar)`
   margin-left: ${props => props.shifted ? `${drawerWidth}px` : '0'};
   width: ${props => props.shifted ? `calc(100% - ${drawerWidth}px)` : '100%'};
+`;
+
+const ToolbarContent = styled.div`
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
 `;
 
 const StyledIconButton = styled(IconButton)`
@@ -66,7 +72,10 @@ const AdminLayout = ({ children }) => {
   return (
     <Layout>
       { /* HEADER BAR */ }
-      <StyledAppBar position="fixed" shifted={openDrawer ? 1 : 0}>
+      <StyledAppBar 
+        position="fixed" 
+        shifted={openDrawer ? 1 : 0}
+      >
         <Toolbar>
           <StyledIconButton
             color="inherit"
@@ -78,8 +87,11 @@ const AdminLayout = ({ children }) => {
             <MenuIcon />
           </StyledIconButton>
           <Typography variant="h6" noWrap>
-            Persistent drawer
+            AlterClass
           </Typography>
+          <ToolbarContent>
+            <Search />
+          </ToolbarContent>
         </Toolbar>
       </StyledAppBar>
 
