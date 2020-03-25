@@ -45,6 +45,36 @@ const StyledCardActions = styled(CardActions)`
 const CheckboxContainer = styled.div`
   margin-top: 10px;
 `;
+const SubscriptionCard = styled(Card)`
+  margin-bottom: 24px;
+`;
+const LeftGridItem = styled(Grid)`
+  border-right: 1px solid rgba(0, 0, 0, 0.12);
+`;
+const RightGridItem = styled(Grid)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+const Status = styled(Typography)`
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+`;
+const Title = styled(Typography)`
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 1.5;
+  margin-bottom: 24px;
+`;
+const Message = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+`;
 
 // main component
 const Settings = () => {
@@ -127,7 +157,7 @@ const Settings = () => {
     ];
     return (
       <TabPanel>
-        <Grid container spacing={3}>
+        <Grid container spacing={4}>
           <Grid item xs={4}>
             <Card>
               <StyledCardContent>
@@ -149,7 +179,7 @@ const Settings = () => {
               <Divider />
               <CardContent>
                 <form noValidate>
-                  <Grid container spacing={4}>
+                  <Grid container spacing={3}>
                     {
                       textFields.map(field => (
                         <Grid item xs={field.size || 6} key={field.id}>
@@ -188,8 +218,121 @@ const Settings = () => {
       </TabPanel>
     );
   };
-  const renderTabPanelSubscription = () => {};
+  const renderTabPanelSubscription = () => {
+    const items = [
+      {
+        status: 'Expired',
+        title: 'The Easy Way to Learn React - MasterClass',
+        startDate: 'February 15, 2020',
+        brand: 'Visa', 
+        last4: '4987'
+      }
+    ];
+    return (
+      <TabPanel>
+        <Card>
+          <CardHeader 
+            disableTypography={true}
+            title={<Typography variant="h6">Subscriptions</Typography>}
+          />
+          <Divider />
+          <CardContent>
+            {
+              items.map(item => (
+                <SubscriptionCard>
+                  <CardContent>
+                    <Grid container spacing={4} key={item.title}>
+                      <LeftGridItem item xs={4}>
+                        <Status variant="subtitle2">{item.status}</Status>
+                        <Title variant="subtitle1">{item.title}</Title>
+                        <Typography variant="body2"><strong>Enrolled on:</strong> {item.startDate}</Typography>
+                        <Typography variant="body2"><strong>Payment method:</strong> {item.brand} {item.last4}</Typography>
+                      </LeftGridItem>
+                      <RightGridItem item xs={8}>
+                        <Message>
+                          <Typography variant="body1">Your subscription has expired. Renew it to keep on learning!</Typography>
+                        </Message>
+                        <Button
+                          variant="contained"
+                          color="secondary"
+                          size="large"
+                        >
+                          Renew
+                        </Button>
+                      </RightGridItem>
+                    </Grid>
+                  </CardContent>
+                </SubscriptionCard>
+              ))
+            }
+          </CardContent>
+        </Card>
+      </TabPanel>
+    );
+  };
   const renderTabPanelNotifications = () => {
+    const items = [
+      {
+        title: "Marketing Communications",
+        caption: "Learn about new courses and programs, scholarship opportunities and upcoming special events.",
+        checkboxes: [
+          { 
+            name: 'email',
+            label: 'Email alerts',
+            checked: emailMarketing, 
+            disabled: false, 
+            onChange: (e) => setEmailMarketing(e.target.checked)
+          },
+          { 
+            name: 'sms',
+            label: <>SMS<FormHelperText>Phone number is missing and/or unverified.</FormHelperText></>,
+            checked: false,
+            disabled: true,
+            onChange: null
+          }
+        ]
+      },
+      {
+        title: "Community",
+        caption: "Send me personalized messages from my Community Manager about events and news in the field.",
+        checkboxes: [
+          { 
+            name: 'email',
+            label: 'Email alerts',
+            checked: emailCommunity,
+            disabled: false,
+            onChange: (e) => setEmailCommunity(e.target.checked)
+          },
+          { 
+            name: 'sms',
+            label: <>SMS<FormHelperText>Phone number is missing and/or unverified.</FormHelperText></>,
+            checked: false,
+            disabled: true,
+            onChange: null 
+          }
+        ]
+      },
+      {
+        title: "Career and Alumni Services",
+        caption: "Keep me connected with career and alumni support included in my program.",
+        checkboxes: [
+          { 
+            name: 'email',
+            label: 'Email alerts',
+            checked: emailServices,
+            disabled: false,
+            onChange: (e) => setEmailServices(e.target.checked)
+          },
+          { 
+            name: 'sms',
+            label: <>SMS<FormHelperText>Phone number is missing and/or unverified.</FormHelperText></>,
+            checked: false,
+            disabled: true,
+            onChange: null
+          }
+        ]
+      },
+    ];
     return (
       <TabPanel>
         <Card>
@@ -199,73 +342,35 @@ const Settings = () => {
           />
           <Divider />
           <CardContent>
-            <Grid container spacing={3}>
-              <Grid item xs={12} md={4}>
-                <Typography variant="subtitle1">Marketing Communications</Typography>
-                <Typography variant="caption">Learn about new courses and programs, scholarship opportunities and upcoming special events.</Typography>
-                <CheckboxContainer>
-                  <FormControl component="fieldset">
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={emailMarketing}
-                          onChange={(e) => setEmailMarketing(e.target.checked)} 
-                          name="email" 
-                        />
-                      }
-                      label="Email alerts"
-                    />
-                    <FormControlLabel
-                      control={<Checkbox checked={false} disabled={true} onChange={null} name="sms" />}
-                      label={<>SMS<FormHelperText>Phone number is missing and/or unverified.</FormHelperText></>}
-                    />
-                  </FormControl>
-                </CheckboxContainer>
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <Typography variant="subtitle1">Community</Typography>
-                <Typography variant="caption">Send me personalized messages from my Community Manager about events and news in the field.</Typography>
-                <CheckboxContainer>
-                  <FormControl component="fieldset">
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={emailCommunity}
-                          onChange={(e) => setEmailCommunity(e.target.checked)} 
-                          name="email" 
-                        />
-                      }
-                      label="Email alerts"
-                    />
-                    <FormControlLabel
-                      control={<Checkbox checked={false} disabled={true} onChange={null} name="sms" />}
-                      label={<>SMS<FormHelperText>Phone number is missing and/or unverified.</FormHelperText></>}
-                    />
-                  </FormControl>
-                </CheckboxContainer>
-              </Grid>
-              <Grid item xs={12} md={4}>
-                <Typography variant="subtitle1">Career and Alumni Services</Typography>
-                <Typography variant="caption">Keep me connected with career and alumni support included in my Nanodegree program.</Typography>
-                <CheckboxContainer>
-                  <FormControl component="fieldset">
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={emailServices}
-                          onChange={(e) => setEmailServices(e.target.checked)} 
-                          name="email" 
-                        />
-                      }
-                      label="Email alerts"
-                    />
-                    <FormControlLabel
-                      control={<Checkbox checked={false} disabled={true} onChange={null} name="sms" />}
-                      label={<>SMS<FormHelperText>Phone number is missing and/or unverified.</FormHelperText></>}
-                    />
-                  </FormControl>
-                </CheckboxContainer>
-              </Grid>
+            <Grid container spacing={4}>
+              {
+                items.map(item => (
+                  <Grid item xs={12} md={4} key={item.title}>
+                    <Typography variant="subtitle1">{item.title}</Typography>
+                    <Typography variant="caption">{item.caption}</Typography>
+                    <CheckboxContainer>
+                      <FormControl component="fieldset">
+                        {
+                          item.checkboxes.map(checkbox => (
+                            <FormControlLabel
+                              key={checkbox.label}
+                              control={
+                                <Checkbox
+                                  checked={checkbox.checked}
+                                  onChange={checkbox.onChange}
+                                  name={checkbox.name}
+                                  disabled={checkbox.disabled}
+                                />
+                              }
+                              label={checkbox.label}
+                            />
+                          ))
+                        }
+                      </FormControl>
+                    </CheckboxContainer>
+                  </Grid>
+                ))
+              }
             </Grid>
           </CardContent>
           <Divider />
