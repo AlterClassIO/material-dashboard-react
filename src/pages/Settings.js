@@ -85,7 +85,7 @@ const Settings = () => {
       <Divider />
     </>
   );
-  const renderTabPanel0 = () => {
+  const renderTabPanelGeneral = () => {
     const textFields = [
       { id: "firstName", label: "First name", defaultValue: "Marion" },
       { id: "lastName", label: "Last name", defaultValue: "Cotillard" },
@@ -117,7 +117,7 @@ const Settings = () => {
           <Grid item xs={4}>
             <Card>
               <StyledCardContent>
-                <StyledAvatar alt="Marion Cotillard" src="avatar.jpg" />
+                <StyledAvatar alt="Marion Cotillard" src="/avatar.jpg" />
                 <Typography variant="h6" component="h3">Marion Cotillard</Typography>
                 <Typography variant="body1">Lyon, FRANCE</Typography>
               </StyledCardContent>
@@ -179,7 +179,7 @@ const Settings = () => {
     <>
       {renderHeader()}
       {renderTabs()}
-      {currentTab === 0 && renderTabPanel0()}
+      {currentTab === 'general' && renderTabPanelGeneral()}
     </>
   );
 };
