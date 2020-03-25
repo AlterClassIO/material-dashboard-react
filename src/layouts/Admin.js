@@ -1,4 +1,9 @@
 import React, { useState } from "react";
+import {
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 // @material-ui/core components
@@ -26,6 +31,8 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 // core components
 import Search from '../components/Search';
+// pages
+import Settings from '../pages/Settings';
 
 const drawerWidth = 240;
 const drawerHeight = 64;
@@ -77,14 +84,17 @@ const Dot = styled.span`
   display: inline-block;
   margin-right: 15px;
 `;
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+
+  &:focus, &:hover, &:visited, &:link, &:active {
+    text-decoration: none;
+  }
+`;
 
 // main component
-const AdminLayout = (props) => {
-  // props
-  const {
-    children,
-    title = 'Dashboard'
-  } = props;
+const AdminLayout = ({ title = 'Dashboard' }) => {
   // state
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openSettings, setOpenSettings] = useState(false);
@@ -125,9 +135,85 @@ const AdminLayout = (props) => {
       </Toolbar>
     </StyledAppBar>
   );
-
-  const renderDrawer = () => (
-    <StyledDrawer
+  const renderList = (title, list) => {
+    return (
+      <List
+        dense={true}
+        subheader={
+          <ListSubheader disableSticky={true}>
+            {title}
+          </ListSubheader>
+        }
+      >
+        {
+          list.map(item => (
+            <React.Fragment key={item.text}>
+              <ListItem
+                button
+                onClick={item.handleClick ? () => item.handleClick() : null}
+              >
+                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemText primary={item.text}/>
+                {item.list ? (item.listOpened ? <ExpandLess /> : <ExpandMore />) : null}
+              </ListItem>
+              {
+                item.list && item.list.length > 0 && (
+                  <Collapse
+                    in={item.listOpened}
+                    timeout="auto"
+                    unmountOnExit
+                  >
+                    <List dense={true}>
+                      {
+                        item.list.map(nestedItem => (
+                          <StyledLink to={location => (
+                            { ...location, pathname: `/${item.link}/${nestedItem.link}` }
+                          )}>
+                            <NestedListItem 
+                              button
+                              key={nestedItem.text}>
+                              <Dot />
+                              <ListItemText primary={nestedItem.text} />
+                            </NestedListItem>
+                          </StyledLink>
+                        ))
+                      }
+                    </List>
+                  </Collapse>
+                )
+              }
+            </React.Fragment>
+          ))
+        }
+      </List>
+    )
+  };
+  const renderDrawer = () => {
+    const firstListItems = [
+      { icon: <HomeIcon />, text: "Dashboard" },
+      { icon: <BarChartIcon />, text: "Management" },
+      { 
+        icon: <SettingsIcon />,
+        text: "Settings",
+        link: 'settings',
+        list: [
+          { text: 'General', link: 'general' },
+          { text: 'Subscription', link: 'subscription' },
+          { text: 'Notifications', link: 'notifications' },
+          { text: 'Security', link: 'security'}
+        ],
+        listOpened: openSettings,
+        handleClick: handleClickSettings
+      },
+      { icon: <LockOpenIcon />, text: "Authentication" }
+    ];
+    const secondListItems = [
+      { icon: <AppsIcon />, text: "Components" },
+      { icon: <CodeIcon />, text: "Getting started" },
+      { icon: <ListIcon />, text: "Changelog" },
+    ];
+    return (
+      <StyledDrawer
         variant="persistent"
         anchor="left"
         open={openDrawer}
@@ -138,74 +224,17 @@ const AdminLayout = (props) => {
             <ChevronLeftIcon />
           </IconButton>
         </DrawerHeader>
-        <List
-          dense={true}
-          subheader={<ListSubheader>Pages</ListSubheader>}
-        >
-          <ListItem button>
-            <ListItemIcon><HomeIcon /></ListItemIcon>
-            <ListItemText primary='Dashboard' />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon><BarChartIcon /></ListItemIcon>
-            <ListItemText primary='Management' />
-          </ListItem>
-          <ListItem button onClick={handleClickSettings}>
-            <ListItemIcon><SettingsIcon /></ListItemIcon>
-            <ListItemText primary='Settings' />
-            {openSettings ? <ExpandLess /> : <ExpandMore />}
-          </ListItem>
-          <Collapse in={openSettings} timeout="auto" unmountOnExit>
-            <List dense={true}>
-              <NestedListItem button>
-                <Dot />
-                <ListItemText primary='General' />
-              </NestedListItem>
-              <NestedListItem button>
-                <Dot />
-                <ListItemText primary='Subscription' />
-              </NestedListItem>
-              <NestedListItem button>
-                <Dot />
-                <ListItemText primary='Notifications' />
-              </NestedListItem>
-              <NestedListItem button>
-                <Dot />
-                <ListItemText primary='Security' />
-              </NestedListItem>
-            </List>
-          </Collapse>
-          <ListItem button>
-            <ListItemIcon><LockOpenIcon /></ListItemIcon>
-            <ListItemText primary='Authentication' />
-          </ListItem>
-        </List>
-        <List
-          dense={true}
-          subheader={
-            <ListSubheader>Support</ListSubheader>
-          }
-        >
-          <ListItem button>
-            <ListItemIcon><AppsIcon /></ListItemIcon>
-            <ListItemText primary='Components' />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon><CodeIcon /></ListItemIcon>
-            <ListItemText primary='Getting started' />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon><ListIcon /></ListItemIcon>
-            <ListItemText primary='Changelog' />
-          </ListItem>
-        </List>
+        {renderList('Pages', firstListItems)}
+        {renderList('Support', secondListItems)}
       </DrawerContent>
     </StyledDrawer>
-  );
-
+    );
+  };
   const renderContent = () => (
     <Content shifted={openDrawer ? 1 : 0}>
-      {children}
+      <Switch>
+        <Route path={`/settings`} component={Settings} />
+      </Switch>
     </Content>
   );
 

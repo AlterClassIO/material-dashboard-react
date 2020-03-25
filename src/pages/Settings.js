@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useRouteMatch, useHistory } from "react-router-dom";
 import styled from 'styled-components';
 // @material-ui/core components
 import Typography from '@material-ui/core/Typography';
@@ -36,14 +37,29 @@ const StyledAvatar = styled(Avatar)`
 
 // main component
 const Settings = () => {
+  // router hooks
+  let { params } = useRouteMatch("/settings/:slug");
+  let history = useHistory();
   // state
-  const [currentTab, setCurrentTab] = useState(0);
+  const [currentTab, setCurrentTab] = useState('general');
   const [makeProfilePublic, setMakeProfilePublic] = useState(true);
   const [availableToHire, setAvailableToHire] = useState(false);
   // function to handle tab selection
   const handleTabChange = (e, newValue) => {
     setCurrentTab(newValue);
+    history.replace(newValue);
   };
+  // set current tab based on url
+  useEffect(() => {
+    switch(params.slug) {
+      case 'general': setCurrentTab('general'); break;
+      case 'subscription': setCurrentTab('subscription'); break;
+      case 'notifications': setCurrentTab('notifications'); break;
+      case 'security': setCurrentTab('security'); break;
+      default: setCurrentTab('general');
+    }
+  },
+  [params.slug]);
 
   // render component
   const renderHeader = () => (
@@ -61,10 +77,10 @@ const Settings = () => {
         onChange={handleTabChange}
         aria-label="tabs"
       >
-        <Tab value={0} label="General" />
-        <Tab value={1} label="Subscription" />
-        <Tab value={2} label="Notifications" />
-        <Tab value={3} label="Security" />
+        <Tab value='general' label="General" />
+        <Tab value='subscription' label="Subscription" />
+        <Tab value='notifications' label="Notifications" />
+        <Tab value='security' label="Security" />
       </StyledTabs>
       <Divider />
     </>

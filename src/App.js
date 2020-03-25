@@ -1,4 +1,8 @@
 import React from 'react';
+import { 
+  BrowserRouter as Router,
+  Route,
+} from "react-router-dom";
 import { ThemeProvider, createGlobalStyle } from "styled-components";
 import { main } from './themes';
 // @material-ui/core components
@@ -13,7 +17,9 @@ function App() {
     <ThemeProvider theme={main}>
       <CssBaseline />
       <GlobalStyles />
-      <Admin />
+      <Router>
+        <Route path="/" component={Admin} />
+      </Router>
     </ThemeProvider>
   );
 }
