@@ -96,7 +96,7 @@ const StyledLink = styled(Link)`
 // main component
 const AdminLayout = ({ title = 'Dashboard' }) => {
   // state
-  const [openDrawer, setOpenDrawer] = useState(false);
+  const [openDrawer, setOpenDrawer] = useState(true);
   const [openSettings, setOpenSettings] = useState(false);
   // functions to handle drawer opening/closing
   const handleDrawerOpen = () => {
