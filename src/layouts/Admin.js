@@ -33,6 +33,7 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import Search from '../components/Search';
 // pages
 import Settings from '../pages/Settings';
+import Dashboard from "../pages/Dashboard";
 
 const drawerWidth = 240;
 const drawerHeight = 64;
@@ -135,6 +136,55 @@ const AdminLayout = ({ title = 'Dashboard' }) => {
       </Toolbar>
     </StyledAppBar>
   );
+  const renderNestedItem = (item, nestedItem) => (
+    <StyledLink
+      key={nestedItem.text}
+      to={location => (
+        { ...location, pathname: `/${item.link}/${nestedItem.link}` }
+      )}
+    >
+      <NestedListItem button>
+        <Dot />
+        <ListItemText primary={nestedItem.text} />
+      </NestedListItem>
+    </StyledLink>
+  );
+  const renderNestedList = (item) => (
+    <Collapse
+      in={item.listOpened}
+      timeout="auto"
+      unmountOnExit
+    >
+      <List dense={true}>
+        {item.list.map(nestedItem => renderNestedItem(item, nestedItem))}
+      </List>
+    </Collapse>
+  );
+  const renderItem = (item) => {
+    const Item = (
+      <ListItem
+        button
+        onClick={item.handleClick ? () => item.handleClick() : null}
+      >
+        <ListItemIcon>{item.icon}</ListItemIcon>
+        <ListItemText primary={item.text}/>
+        {item.list ? (item.listOpened ? <ExpandLess /> : <ExpandMore />) : null}
+      </ListItem>
+    );
+    if (item.list && item.list.length > 0) {
+      return Item;
+    }
+    return (
+      <StyledLink
+        key={item.text}
+        to={location => (
+          { ...location, pathname: `/${item.link}` }
+        )}
+      >
+        {Item}
+      </StyledLink>
+    );
+  }
   const renderList = (title, list) => {
     return (
       <List
@@ -148,41 +198,8 @@ const AdminLayout = ({ title = 'Dashboard' }) => {
         {
           list.map(item => (
             <React.Fragment key={item.text}>
-              <ListItem
-                button
-                onClick={item.handleClick ? () => item.handleClick() : null}
-              >
-                <ListItemIcon>{item.icon}</ListItemIcon>
-                <ListItemText primary={item.text}/>
-                {item.list ? (item.listOpened ? <ExpandLess /> : <ExpandMore />) : null}
-              </ListItem>
-              {
-                item.list && item.list.length > 0 && (
-                  <Collapse
-                    in={item.listOpened}
-                    timeout="auto"
-                    unmountOnExit
-                  >
-                    <List dense={true}>
-                      {
-                        item.list.map(nestedItem => (
-                          <StyledLink
-                            key={nestedItem.text}
-                            to={location => (
-                              { ...location, pathname: `/${item.link}/${nestedItem.link}` }
-                            )}
-                          >
-                            <NestedListItem button>
-                              <Dot />
-                              <ListItemText primary={nestedItem.text} />
-                            </NestedListItem>
-                          </StyledLink>
-                        ))
-                      }
-                    </List>
-                  </Collapse>
-                )
-              }
+              {renderItem(item)}
+              {item.list && item.list.length > 0 && renderNestedList(item)}
             </React.Fragment>
           ))
         }
@@ -191,8 +208,8 @@ const AdminLayout = ({ title = 'Dashboard' }) => {
   };
   const renderDrawer = () => {
     const firstListItems = [
-      { icon: <HomeIcon />, text: "Dashboard" },
-      { icon: <BarChartIcon />, text: "Management" },
+      { icon: <HomeIcon />, text: "Dashboard", link: 'dashboard' },
+      { icon: <BarChartIcon />, text: "Management", link: 'management' },
       { 
         icon: <SettingsIcon />,
         text: "Settings",
@@ -206,12 +223,12 @@ const AdminLayout = ({ title = 'Dashboard' }) => {
         listOpened: openSettings,
         handleClick: handleClickSettings
       },
-      { icon: <LockOpenIcon />, text: "Authentication" }
+      { icon: <LockOpenIcon />, text: "Authentication", link: 'authentication' }
     ];
     const secondListItems = [
-      { icon: <AppsIcon />, text: "Components" },
-      { icon: <CodeIcon />, text: "Getting started" },
-      { icon: <ListIcon />, text: "Changelog" },
+      { icon: <AppsIcon />, text: "Components", link: 'components' },
+      { icon: <CodeIcon />, text: "Getting started", link: 'getting-started' },
+      { icon: <ListIcon />, text: "Changelog", link: 'changelog' },
     ];
     return (
       <StyledDrawer
@@ -235,6 +252,7 @@ const AdminLayout = ({ title = 'Dashboard' }) => {
     <Content shifted={openDrawer ? 1 : 0}>
       <Switch>
         <Route path={`/settings`} component={Settings} />
+        <Route path={`/dashboard`} component={Dashboard} />
       </Switch>
     </Content>
   );
