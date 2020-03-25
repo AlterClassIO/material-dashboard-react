@@ -383,7 +383,55 @@ const Settings = () => {
       </TabPanel>
     );
   };
-  const renderTabPanelSecurity = () => {};
+  const renderTabPanelSecurity = () => {
+    return (
+      <TabPanel>
+        <Card>
+          <CardHeader 
+            disableTypography={true}
+            title={<Typography variant="h6">Change password</Typography>}
+          />
+          <Divider />
+          <CardContent>
+            <form noValidate>
+              <Grid container spacing={3}>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    id="current-password"
+                    label="Current password"
+                    variant="outlined"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    id="new-password"
+                    label="New password"
+                    variant="outlined"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    id="verify-password"
+                    label="Verify password"
+                    variant="outlined"
+                  />
+                </Grid>
+              </Grid>
+            </form>
+          </CardContent>
+          <Divider />
+          <StyledCardActions>
+            <Button variant="contained" color="primary">
+              SAVE CHANGES
+            </Button>
+          </StyledCardActions>
+        </Card>
+      </TabPanel>
+    );
+  };
 
   return (
     <>
