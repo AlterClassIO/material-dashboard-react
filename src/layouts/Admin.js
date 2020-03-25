@@ -166,12 +166,13 @@ const AdminLayout = ({ title = 'Dashboard' }) => {
                     <List dense={true}>
                       {
                         item.list.map(nestedItem => (
-                          <StyledLink to={location => (
-                            { ...location, pathname: `/${item.link}/${nestedItem.link}` }
-                          )}>
-                            <NestedListItem 
-                              button
-                              key={nestedItem.text}>
+                          <StyledLink
+                            key={nestedItem.text}
+                            to={location => (
+                              { ...location, pathname: `/${item.link}/${nestedItem.link}` }
+                            )}
+                          >
+                            <NestedListItem button>
                               <Dot />
                               <ListItemText primary={nestedItem.text} />
                             </NestedListItem>
