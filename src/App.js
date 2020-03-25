@@ -2,6 +2,7 @@ import React from 'react';
 import { 
   BrowserRouter as Router,
   Route,
+  Redirect,
 } from "react-router-dom";
 import { ThemeProvider, createGlobalStyle } from "styled-components";
 import { main } from './themes';
@@ -19,6 +20,7 @@ function App() {
       <GlobalStyles />
       <Router>
         <Route path="/" component={Admin} />
+        <Redirect from="/" to="/dashboard" />
       </Router>
     </ThemeProvider>
   );
