@@ -15,6 +15,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
+import Grid from '@material-ui/core/Grid';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -31,6 +32,7 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 // core components
 import Search from '../components/Search';
+import ProfileButton from '../components/ProfileButton';
 // pages
 import Settings from '../pages/Settings';
 import Dashboard from "../pages/Dashboard";
@@ -45,11 +47,6 @@ const Layout = styled.div`
 const StyledAppBar = styled(AppBar)`
   margin-left: ${props => props.shifted ? `${drawerWidth}px` : '0'};
   width: ${props => props.shifted ? `calc(100% - ${drawerWidth}px)` : '100%'};
-`;
-const ToolbarContent = styled.div`
-  flex-grow: 1;
-  display: flex;
-  justify-content: flex-end;
 `;
 const StyledIconButton = styled(IconButton)`
   display: ${props => props.show ? 'inline-block' : 'none'};
@@ -94,6 +91,20 @@ const StyledLink = styled(Link)`
   }
 `;
 
+const GridContainer = ({ children }) => (
+  <Grid
+    container
+    spacing={2}
+    alignItems="center"
+    justify="space-between"
+  >
+    {children}
+  </Grid>
+);
+const GridItem = ({ children }) => (
+  <Grid item>{children}</Grid>
+);
+
 // main component
 const AdminLayout = ({ title = 'Dashboard' }) => {
   // state
@@ -112,27 +123,54 @@ const AdminLayout = ({ title = 'Dashboard' }) => {
   };
 
   // render component
+  const renderLeftAppBarContent = () => (
+    <GridItem>
+      <GridContainer>
+        <GridItem>
+          <StyledIconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            show={openDrawer ? 0 : 1}
+          >
+            <MenuIcon />
+          </StyledIconButton>
+        </GridItem>
+        <GridItem>
+          <Typography variant="h6" noWrap>
+            {title}
+          </Typography>
+        </GridItem>
+      </GridContainer>
+    </GridItem>
+  );
+  const renderRightAppBarContent = () => (
+    <GridItem>
+      <GridContainer>
+        <GridItem>
+          <Search />
+        </GridItem>
+        <GridItem>
+          <ProfileButton
+            text="Hi, Marion"
+            alt="Marion Cotillard"
+            src="/avatar.jpg"
+          />
+        </GridItem>
+      </GridContainer>
+    </GridItem>
+  );
   const renderAppBar = () => (
     <StyledAppBar 
       position="fixed" 
       shifted={openDrawer ? 1 : 0}
     >
       <Toolbar>
-        <StyledIconButton
-          color="inherit"
-          aria-label="open drawer"
-          onClick={handleDrawerOpen}
-          edge="start"
-          show={openDrawer ? 0 : 1}
-        >
-          <MenuIcon />
-        </StyledIconButton>
-        <Typography variant="h6" noWrap>
-          {title}
-        </Typography>
-        <ToolbarContent>
-          <Search />
-        </ToolbarContent>
+        <GridContainer>
+          {renderLeftAppBarContent()}
+          {renderRightAppBarContent()}
+        </GridContainer>
       </Toolbar>
     </StyledAppBar>
   );
