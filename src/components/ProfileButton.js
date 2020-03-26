@@ -19,11 +19,13 @@ const ProfileButton = (props) => {
   const {
     text = "Hey there!",
     src = "",
-    alt = ""
+    alt = "",
+    ...rest
   } = props;
   // render component
   return (
     <StyledButton
+      {...rest}
       endIcon={
         <AvatarWithBadge alt={alt} src={src} />
       }
