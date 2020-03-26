@@ -33,6 +33,7 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 // core components
 import Search from '../components/Search';
 import ProfileButton from '../components/ProfileButton';
+import ProfilePopover from '../components/ProfilePopover';
 // pages
 import Settings from '../pages/Settings';
 import Dashboard from "../pages/Dashboard";
@@ -91,18 +92,19 @@ const StyledLink = styled(Link)`
   }
 `;
 
-const GridContainer = ({ children }) => (
+const GridContainer = ({ children, ...rest }) => (
   <Grid
     container
     spacing={2}
     alignItems="center"
     justify="space-between"
+    {...rest}
   >
     {children}
   </Grid>
 );
-const GridItem = ({ children }) => (
-  <Grid item>{children}</Grid>
+const GridItem = ({ children, ...rest }) => (
+  <Grid item {...rest}>{children}</Grid>
 );
 
 // main component
@@ -110,6 +112,7 @@ const AdminLayout = ({ title = 'Dashboard' }) => {
   // state
   const [openDrawer, setOpenDrawer] = useState(true);
   const [openSettings, setOpenSettings] = useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
   // functions to handle drawer opening/closing
   const handleDrawerOpen = () => {
     setOpenDrawer(true);
@@ -120,6 +123,14 @@ const AdminLayout = ({ title = 'Dashboard' }) => {
   // functions to handle nested lists opening/closing
   const handleClickSettings = () => {
     setOpenSettings(!openSettings);
+  };
+  // functions to handle profile popover opening/closing
+  const open = Boolean(anchorEl);
+  const handleProfilePopoverOpen = (e) => {
+    setAnchorEl(e.currentTarget);
+  };
+  const handleProfilePopoverClose = () => {
+    setAnchorEl(null);
   };
 
   // render component
@@ -156,6 +167,20 @@ const AdminLayout = ({ title = 'Dashboard' }) => {
             text="Hi, Marion"
             alt="Marion Cotillard"
             src="/avatar.jpg"
+            onClick={handleProfilePopoverOpen}
+          />
+          <ProfilePopover 
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleProfilePopoverClose}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
           />
         </GridItem>
       </GridContainer>
