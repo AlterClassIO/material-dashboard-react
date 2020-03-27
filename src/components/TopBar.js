@@ -1,18 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import styled from 'styled-components';
 // @material-ui/core components
 import AppBar from '@material-ui/core/AppBar';
+import Badge from '@material-ui/core/Badge';
+import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 // @material-ui/icons components
 import MenuIcon from '@material-ui/icons/Menu';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import AppsIcon from '@material-ui/icons/Apps';
 // core components
 import Search from '../components/Search';
 import ProfileButton from '../components/ProfileButton';
 import ProfilePopover from '../components/ProfilePopover';
+import NotificationsPopover from '../components/NotificationsPopover';
 
 // styled components
 const StyledAppBar = styled(AppBar)`
@@ -22,11 +27,14 @@ const StyledAppBar = styled(AppBar)`
 const StyledIconButton = styled(IconButton)`
   display: ${props => props.show ? 'inline-block' : 'none'};
 `;
+const StyledButton = styled(Button)`
+  min-width: 24px;
+`;
 
 const GridContainer = ({ children, ...rest }) => (
   <Grid
     container
-    spacing={2}
+    spacing={1}
     alignItems="center"
     justify="space-between"
     {...rest}
@@ -48,15 +56,11 @@ const TopBar = (props) => {
     shift = 0
   } = props;
   //state
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  // functions to handle profile popover opening/closing
-  const open = Boolean(anchorEl);
-  const handleProfilePopoverOpen = (e) => {
-    setAnchorEl(e.currentTarget);
-  };
-  const handleProfilePopoverClose = () => {
-    setAnchorEl(null);
-  };
+  const [profileEl, setProfileEl] = useState(null);
+  const [notificationsEl, setNotificationsEl] = useState(null);
+  // variables to handle popovers opening/closing
+  const profileOpen = Boolean(profileEl);
+  const notificationsOpen = Boolean(notificationsEl);
   // render component
   const renderLeftAppBarContent = () => (
     <GridItem>
@@ -87,16 +91,45 @@ const TopBar = (props) => {
           <Search />
         </GridItem>
         <GridItem>
+          <StyledButton color="inherit">
+            <Badge
+              badgeContent={4}
+              color="secondary"
+              onClick={e => setNotificationsEl(e.currentTarget)}
+            >
+              <NotificationsIcon />
+            </Badge>
+          </StyledButton>
+          <NotificationsPopover 
+            anchorEl={notificationsEl}
+            open={notificationsOpen}
+            onClose={() => setNotificationsEl(null)}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+          />
+        </GridItem>
+        <GridItem>
+          <StyledButton color="inherit">
+            <AppsIcon />
+          </StyledButton>
+        </GridItem>
+        <GridItem>
           <ProfileButton
             text="Hi, Marion"
             alt="Marion Cotillard"
             src="/avatar.jpg"
-            onClick={handleProfilePopoverOpen}
+            onClick={e => setProfileEl(e.currentTarget)}
           />
           <ProfilePopover 
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleProfilePopoverClose}
+            anchorEl={profileEl}
+            open={profileOpen}
+            onClose={() => setProfileEl(null)}
             anchorOrigin={{
               vertical: 'bottom',
               horizontal: 'right',
