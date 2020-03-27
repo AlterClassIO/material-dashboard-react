@@ -45,6 +45,10 @@ const StyledListItem = styled(ListItem)`
   padding-left: 24px;
   padding-right: 24px;
 `;
+const StyledListItemIcon = styled(ListItemIcon)`
+  min-width: 20px;
+  margin-right: 16px;
+`;
 const StyledProfileIcon = styled(ProfileIcon)`
   color: ${teal[300]};
 `;
@@ -67,22 +71,22 @@ const ProfilePopover = (props) => {
     {
       primary: "My Profile",
       secondary: "Account settings and more",
-      icon: <StyledProfileIcon />
+      icon: <StyledProfileIcon fontSize="small" />
     },
     {
       primary: "My Messages",
       secondary: "Inbox and chat",
-      icon: <StyledEmailIcon />
+      icon: <StyledEmailIcon fontSize="small" />
     },
     {
       primary: "My Activities",
       secondary: "Logs and notifications",
-      icon: <StyledStarIcon />
+      icon: <StyledStarIcon fontSize="small" />
     },
     {
       primary: "My Tasks",
       secondary: "Latest tasks and projects",
-      icon: <StyledAssignmentIcon />
+      icon: <StyledAssignmentIcon fontSize="small" />
     },
   ];
   // render component
@@ -114,7 +118,7 @@ const ProfilePopover = (props) => {
             items.map(item => (
               <React.Fragment key={item.primary}>
                 <StyledListItem button>
-                  <ListItemIcon>{item.icon}</ListItemIcon>
+                  <StyledListItemIcon>{item.icon}</StyledListItemIcon>
                   <ListItemText
                     primary={item.primary}
                     secondary={item.secondary}
