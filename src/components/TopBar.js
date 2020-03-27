@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styled from 'styled-components';
 // @material-ui/core components
 import AppBar from '@material-ui/core/AppBar';
@@ -122,6 +123,13 @@ const TopBar = (props) => {
       </Toolbar>
     </StyledAppBar>
   );
+};
+
+TopBar.propTypes = {
+  title: PropTypes.string,
+  showMenuIcon: PropTypes.bool,
+  onClickMenu: PropTypes.func,
+  shift: PropTypes.number
 };
 
 export default TopBar;
