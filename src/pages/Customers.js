@@ -14,6 +14,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Checkbox from '@material-ui/core/Checkbox';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import Button from '@material-ui/core/Button';
 // @material-ui/icons components
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import StarIcon from '@material-ui/icons/Star';
@@ -25,9 +26,17 @@ import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
 import PrintIcon from '@material-ui/icons/Print';
 import ArchiveIcon from '@material-ui/icons/Archive';
 // core components
-//...
+import Search from '../components/Search';
 
 // styled components
+const SearchContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 24px;
+`;
+const StyledSearchButton = styled(Button)`
+  margin-left: 10px;
+`;
 const StyledPaper = styled(Paper)`
   margin-top: 24px;
 `;
@@ -129,6 +138,21 @@ const Customers = () => {
       <Typography variant="h5" component="h1">Customers</Typography>
     </>
   );
+  const renderSearch = () => (
+    <SearchContainer>
+      <Search 
+        bgColor="#fff"
+        color="rgba(0, 0, 0, 0.87)"
+        elevation={1}
+      />
+      <StyledSearchButton
+        variant="contained"
+        color="secondary"
+      >
+        Search
+      </StyledSearchButton>
+    </SearchContainer>
+  );
   const renderRatingStars = (rating) => {
     let stars = [];
     for (let i = 0; i < Math.floor(rating); i++) {
@@ -206,6 +230,7 @@ const Customers = () => {
   return (
     <>
       {renderHeader()}
+      {renderSearch()}
       {renderTable()}
     </>
   );
