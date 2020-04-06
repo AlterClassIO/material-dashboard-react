@@ -18,6 +18,7 @@ import Search from '../components/Search';
 import ProfileButton from '../components/ProfileButton';
 import ProfilePopover from '../components/ProfilePopover';
 import NotificationsPopover from '../components/NotificationsPopover';
+import ActionsPopover from '../components/ActionsPopover';
 
 // styled components
 const StyledAppBar = styled(AppBar)`
@@ -58,9 +59,11 @@ const TopBar = (props) => {
   //state
   const [profileEl, setProfileEl] = useState(null);
   const [notificationsEl, setNotificationsEl] = useState(null);
+  const [actionsEl, setActionsEl] = useState(null);
   // variables to handle popovers opening/closing
   const profileOpen = Boolean(profileEl);
   const notificationsOpen = Boolean(notificationsEl);
+  const actionsOpen = Boolean(actionsEl);
   // render component
   const renderLeftAppBarContent = () => (
     <GridItem>
@@ -91,11 +94,13 @@ const TopBar = (props) => {
           <Search />
         </GridItem>
         <GridItem>
-          <StyledButton color="inherit">
+          <StyledButton
+            color="inherit"
+            onClick={e => setNotificationsEl(e.currentTarget)}
+          >
             <Badge
               badgeContent={4}
               color="secondary"
-              onClick={e => setNotificationsEl(e.currentTarget)}
             >
               <NotificationsIcon />
             </Badge>
@@ -115,9 +120,25 @@ const TopBar = (props) => {
           />
         </GridItem>
         <GridItem>
-          <StyledButton color="inherit">
+          <StyledButton
+            color="inherit"
+            onClick={e => setActionsEl(e.currentTarget)}
+          >
             <AppsIcon />
           </StyledButton>
+          <ActionsPopover 
+            anchorEl={actionsEl}
+            open={actionsOpen}
+            onClose={() => setActionsEl(null)}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+          />
         </GridItem>
         <GridItem>
           <ProfileButton
