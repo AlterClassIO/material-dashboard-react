@@ -68,9 +68,13 @@ const PersistentDrawer = (props) => {
   } = props;
   // state
   const [openSettings, setOpenSettings] = useState(false);
+  const [openManagement, setOpenManagement] = useState(false);
   // functions to handle nested lists opening/closing
   const handleClickSettings = () => {
     setOpenSettings(!openSettings);
+  };
+  const handleClickManagement = () => {
+    setOpenManagement(!openManagement);
   };
   // functions to render lists and items
   const renderNestedItem = (item, nestedItem) => (
@@ -148,7 +152,18 @@ const PersistentDrawer = (props) => {
       title: "Pages",
       items: [
         { icon: <HomeIcon />, text: "Dashboard", link: 'dashboard' },
-        { icon: <BarChartIcon />, text: "Management", link: 'management' },
+        { 
+          icon: <BarChartIcon />,
+          text: "Management",
+          link: 'management',
+          items: [
+            { text: 'Customers', link: 'customers' },
+            { text: 'Projects', link: 'projects' },
+            { text: 'Orders', link: 'orders' }
+          ],
+          open: openManagement,
+          handleClick: handleClickManagement
+        },
         { 
           icon: <SettingsIcon />,
           text: "Settings",

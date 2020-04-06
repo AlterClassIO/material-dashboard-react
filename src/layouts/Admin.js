@@ -6,6 +6,9 @@ import TopBar from "../components/TopBar";
 import PersistentDrawer from '../components/PersistentDrawer';
 // pages
 import Settings from '../pages/Settings';
+import Customers from '../pages/Customers';
+import Projects from '../pages/Projects';
+import Orders from '../pages/Orders';
 import Dashboard from "../pages/Dashboard";
 
 const drawerWidth = 240;
@@ -43,6 +46,9 @@ const AdminLayout = (props) => {
       { /* MAIN CONTENT */ }
       <Content shifted={openDrawer ? 1 : 0}>
         <Switch>
+          <Route strict path={`/management/customers`} component={Customers} />
+          <Route strict path={`/management/projects`} component={Projects} />
+          <Route strict path={`/management/orders`} component={Orders} />
           <Route path={`/settings`} component={Settings} />
           <Route path={`/dashboard`} component={Dashboard} />
         </Switch>
