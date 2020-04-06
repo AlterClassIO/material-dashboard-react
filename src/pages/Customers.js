@@ -12,10 +12,18 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Toolbar from '@material-ui/core/Toolbar';
 import Checkbox from '@material-ui/core/Checkbox';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 // @material-ui/icons components
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import StarIcon from '@material-ui/icons/Star';
 import StarHalfIcon from '@material-ui/icons/StarHalf';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
+import GetAppIcon from '@material-ui/icons/GetApp';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
+import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
+import PrintIcon from '@material-ui/icons/Print';
+import ArchiveIcon from '@material-ui/icons/Archive';
 // core components
 //...
 
@@ -23,19 +31,34 @@ import StarBorderIcon from '@material-ui/icons/StarBorder';
 const StyledPaper = styled(Paper)`
   margin-top: 24px;
 `;
+const StyledToolbar = styled(Toolbar)`
+  display: flex;
+  justify-content: space-between;
+`;
 const StyledTableHead = styled(TableHead)`
   background-color: ${grey[50]};
   border-top: 1px solid rgba(224, 224, 224, 1);
+`;
+const MenuIcon = styled(MoreVertIcon)`
+  cursor: pointer;
 `;
 const Title = styled(Typography)`
   font-size: 1rem;
   font-weight: 500;
 `;
-const iconStyles = css`
+const starIconStyles = css`
   color: ${amber[400]};
 `;
-const StyledStarIcon = styled(StarIcon)`${iconStyles}`;
-const StyledStarHalfIcon = styled(StarHalfIcon)`${iconStyles}`;
+const StyledStarIcon = styled(StarIcon)`${starIconStyles}`;
+const StyledStarHalfIcon = styled(StarHalfIcon)`${starIconStyles}`;
+const menuIconStyles = css`
+  margin-right: 10px;
+`;
+const StyledGetAppIcon = styled(GetAppIcon)`${menuIconStyles}`;
+const StyledFileCopyIcon = styled(FileCopyIcon)`${menuIconStyles}`;
+const StyledPictureAsPdfIcon = styled(PictureAsPdfIcon)`${menuIconStyles}`;
+const StyledPrintIcon = styled(PrintIcon)`${menuIconStyles}`;
+const StyledArchiveIcon = styled(ArchiveIcon)`${menuIconStyles}`;
 
 const customers = [
   { 
@@ -61,7 +84,8 @@ const customers = [
 const Customers = () => {
   // state
   const [selected, setSelected] = useState([]);
-  
+  const [anchorMenu, setAnchorMenu] = useState(null);
+  // methods to handle items selection
   const handleSelectItem = (name) => {
     const selectedIndex = selected.indexOf(name);
     let newSelected = [];
@@ -89,8 +113,14 @@ const Customers = () => {
     }
     setSelected([]);
   };
-
   const isSelected = (name) => selected.indexOf(name) !== -1;
+  // methods to handle menu opening/closing
+  const handleMenuClick = (event) => {
+    setAnchorMenu(event.currentTarget);
+  };
+  const handleMenuClose = () => {
+    setAnchorMenu(null);
+  };
 
   // render component
   const renderHeader = () => (
@@ -114,11 +144,24 @@ const Customers = () => {
   };
   const renderTable = () => (
     <StyledPaper>
-      <Toolbar>
+      <StyledToolbar>
         <Title variant="h5" id="tableTitle" component="span">
           All customers
         </Title>
-      </Toolbar>
+        <MenuIcon onClick={handleMenuClick} />
+        <Menu
+          anchorEl={anchorMenu}
+          keepMounted
+          open={Boolean(anchorMenu)}
+          onClose={handleMenuClose}
+        >
+          <MenuItem onClick={handleMenuClose}><StyledGetAppIcon /> Import</MenuItem>
+          <MenuItem onClick={handleMenuClose}><StyledFileCopyIcon /> Copy to clipboard</MenuItem>
+          <MenuItem onClick={handleMenuClose}><StyledPictureAsPdfIcon /> Export as PDF</MenuItem>
+          <MenuItem onClick={handleMenuClose}><StyledPrintIcon /> Print</MenuItem>
+          <MenuItem onClick={handleMenuClose}><StyledArchiveIcon /> Archive</MenuItem>
+        </Menu>
+      </StyledToolbar>
       <TableContainer>
         <Table>
         <StyledTableHead>
