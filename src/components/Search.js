@@ -36,12 +36,14 @@ const StyledInput = styled(InputBase)`
 `;
 
 // main component
-const Search = ({ 
-  placeholder = "Search...",
-  bgColor = "",
-  color = "#fff",
-  elevation = 0
-}) => {
+const Search = (props) => {
+  // props
+  const { 
+    placeholder = "Search...",
+    bgColor = "",
+    color = "#fff",
+    elevation = 0
+  } = props;
   // state
   const [wider, setWider] = useState(false);
   // ref to help detect click inside/outside container
