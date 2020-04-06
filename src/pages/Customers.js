@@ -201,6 +201,7 @@ const Customers = () => {
             <TableCell>Location</TableCell>
             <TableCell>Total Spent</TableCell>
             <TableCell>Rating</TableCell>
+            <TableCell>Actions</TableCell>
           </TableRow>
         </StyledTableHead>
         <TableBody>
@@ -208,10 +209,12 @@ const Customers = () => {
             <TableRow
               key={customer.name}
               hover
-              onClick={e => handleSelectItem(customer.name)}
               role="checkbox"
             >
-              <TableCell padding="checkbox">
+              <TableCell 
+                padding="checkbox"
+                onClick={e => handleSelectItem(customer.name)}
+              >
                 <Checkbox checked={isSelected(customer.name)} />
               </TableCell>
               <TableCell component="th" scope="row">
@@ -220,6 +223,11 @@ const Customers = () => {
               <TableCell>{customer.location}</TableCell>
               <TableCell>${customer.spent.toFixed(2)}</TableCell>
               <TableCell>{renderRatingStars(customer.rating)}</TableCell>
+              <TableCell>
+                <Button variant="outlined" color="primary">
+                  View
+                </Button>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
