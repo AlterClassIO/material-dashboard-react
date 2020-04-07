@@ -25,11 +25,12 @@ import PictureAsPdfIcon from '@material-ui/icons/PictureAsPdf';
 import PrintIcon from '@material-ui/icons/Print';
 import ArchiveIcon from '@material-ui/icons/Archive';
 // core components
-//...
+import BottomDrawer from './BottomDrawer';
 
 // styled components
 const Container = styled(Paper)`
   margin-top: 24px;
+  ${props => props.bottomMargin ? "margin-bottom: 64px" : null};
 `; 
 const StyledToolbar = styled(Toolbar)`
   display: flex;
@@ -114,85 +115,88 @@ const EnhancedTable = (props) => {
   };
   // render component
   return (
-    <Container>
-      <StyledToolbar>
-        <Title variant="h5" id="tableTitle" component="span">{title}</Title>
-        <MenuIcon onClick={handleMenuClick} />
-        <Menu
-          anchorEl={anchorMenu}
-          keepMounted
-          open={Boolean(anchorMenu)}
-          onClose={handleMenuClose}
-        >
-          <MenuItem onClick={handleMenuClose}><StyledGetAppIcon /> Import</MenuItem>
-          <MenuItem onClick={handleMenuClose}><StyledFileCopyIcon /> Copy to clipboard</MenuItem>
-          <MenuItem onClick={handleMenuClose}><StyledPictureAsPdfIcon /> Export as PDF</MenuItem>
-          <MenuItem onClick={handleMenuClose}><StyledPrintIcon /> Print</MenuItem>
-          <MenuItem onClick={handleMenuClose}><StyledArchiveIcon /> Archive</MenuItem>
-        </Menu>
-      </StyledToolbar>
-      <TableContainer>
-        <Table>
-          <StyledTableHead>
-            <TableRow>
-              <TableCell padding="checkbox">
-                <Checkbox
-                  indeterminate={selected.length > 0 && selected.length < data.length}
-                  checked={data.length > 0 && selected.length === data.length}
-                  onChange={handleSelectAll}
-                />
-              </TableCell>
-              {header.map(item => <TableCell key={item}>{item}</TableCell>)}
-              <TableCell>Actions</TableCell>
-            </TableRow>
-          </StyledTableHead>
-          <TableBody>
-            {
-              data
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map(row => (
-                  <TableRow
-                    key={row.id}
-                    hover
-                    role="checkbox"
-                  >
-                    <TableCell 
-                      padding="checkbox"
-                      onClick={e => handleSelectItem(row.id)}
+    <>
+      <Container bottomMargin={selected.length > 0}>
+        <StyledToolbar>
+          <Title variant="h5" id="tableTitle" component="span">{title}</Title>
+          <MenuIcon onClick={handleMenuClick} />
+          <Menu
+            anchorEl={anchorMenu}
+            keepMounted
+            open={Boolean(anchorMenu)}
+            onClose={handleMenuClose}
+          >
+            <MenuItem onClick={handleMenuClose}><StyledGetAppIcon /> Import</MenuItem>
+            <MenuItem onClick={handleMenuClose}><StyledFileCopyIcon /> Copy to clipboard</MenuItem>
+            <MenuItem onClick={handleMenuClose}><StyledPictureAsPdfIcon /> Export as PDF</MenuItem>
+            <MenuItem onClick={handleMenuClose}><StyledPrintIcon /> Print</MenuItem>
+            <MenuItem onClick={handleMenuClose}><StyledArchiveIcon /> Archive</MenuItem>
+          </Menu>
+        </StyledToolbar>
+        <TableContainer>
+          <Table>
+            <StyledTableHead>
+              <TableRow>
+                <TableCell padding="checkbox">
+                  <Checkbox
+                    indeterminate={selected.length > 0 && selected.length < data.length}
+                    checked={data.length > 0 && selected.length === data.length}
+                    onChange={handleSelectAll}
+                  />
+                </TableCell>
+                {header.map(item => <TableCell key={item}>{item}</TableCell>)}
+                <TableCell>Actions</TableCell>
+              </TableRow>
+            </StyledTableHead>
+            <TableBody>
+              {
+                data
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map(row => (
+                    <TableRow
+                      key={row.id}
+                      hover
+                      role="checkbox"
                     >
-                      <Checkbox checked={isSelected(row.id)} />
-                    </TableCell>
-                    {
-                      Object.entries(row).map((column, id) => {
-                        if (excludeColumns.indexOf(column[0]) !== -1) {
-                          return null;
-                        }
-                        return (
-                          <TableCell key={id}>{column[1]}</TableCell>
-                        );
-                      })
-                    }
-                    <TableCell>
-                      <Button variant="outlined" color="primary">
-                        View
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-              ))
-            }
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
-        component="div"
-        count={data.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onChangePage={handleChangePage}
-        onChangeRowsPerPage={handleChangeRowsPerPage}
-      />
-    </Container>
+                      <TableCell 
+                        padding="checkbox"
+                        onClick={e => handleSelectItem(row.id)}
+                      >
+                        <Checkbox checked={isSelected(row.id)} />
+                      </TableCell>
+                      {
+                        Object.entries(row).map((column, id) => {
+                          if (excludeColumns.indexOf(column[0]) !== -1) {
+                            return null;
+                          }
+                          return (
+                            <TableCell key={id}>{column[1]}</TableCell>
+                          );
+                        })
+                      }
+                      <TableCell>
+                        <Button variant="outlined" color="primary">
+                          View
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                ))
+              }
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={data.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onChangePage={handleChangePage}
+          onChangeRowsPerPage={handleChangeRowsPerPage}
+        />
+      </Container>
+      <BottomDrawer num={selected.length} />
+    </>
   );
 };
 
