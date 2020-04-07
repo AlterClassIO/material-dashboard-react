@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 // @material-ui/core components
-import { green } from '@material-ui/core/colors';
+import { indigo } from '@material-ui/core/colors';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
@@ -27,7 +27,7 @@ const AvatarContainer = styled(Grid)`
 const StyledAvatar = styled(Avatar)`
   width: 48px;
   height: 48px;
-  background-color: ${green[400]};
+  background-color: ${indigo[500]};
 `;
 
 // main component
