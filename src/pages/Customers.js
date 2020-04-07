@@ -5,6 +5,7 @@ import { amber } from '@material-ui/core/colors';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
+import Grid from '@material-ui/core/Grid';
 // @material-ui/icons components
 import StarIcon from '@material-ui/icons/Star';
 import StarHalfIcon from '@material-ui/icons/StarHalf';
@@ -14,6 +15,9 @@ import Search from '../components/Search';
 import EnhancedTable from '../components/EnhancedTable';
 
 // styled components
+const StyledGrid = styled(Grid)`
+  margin-top: 24px;
+`;
 const User = styled.div`
   display: flex;
   align-items: center;
@@ -27,11 +31,6 @@ const Name = styled(Typography)`
 `;
 const StyledAvatar = styled(Avatar)`
   margin-right: 10px;
-`;
-const SearchContainer = styled.div`
-  display: flex;
-  align-items: center;
-  margin-top: 24px;
 `;
 const StyledSearchButton = styled(Button)`
   margin-left: 10px;
@@ -167,25 +166,48 @@ const Customers = () => {
     </>
   );
   const renderSearch = () => (
-    <SearchContainer>
-      <Search 
-        bgColor="#fff"
-        color="rgba(0, 0, 0, 0.87)"
-        elevation={1}
-      />
-      <StyledSearchButton
-        variant="contained"
-        color="secondary"
-      >
-        Search
-      </StyledSearchButton>
-    </SearchContainer>
+    <Grid
+      container
+      alignItems="center"
+    >
+      <Grid item>
+        <Search 
+          bgColor="#fff"
+          color="rgba(0, 0, 0, 0.87)"
+          elevation={1}
+        />
+      </Grid>
+      <Grid item>
+        <StyledSearchButton
+          variant="contained"
+          color="secondary"
+        >
+          Search
+        </StyledSearchButton>
+      </Grid>
+    </Grid>
   );
 
   return (
     <>
       {renderHeader()}
-      {renderSearch()}
+      <StyledGrid
+        container
+        justify="space-between"
+        alignItems="center"
+      >
+        <Grid item>
+          {renderSearch()}
+        </Grid>
+        <Grid item>
+          <Button
+            variant="contained"
+            color="primary"
+          >
+            Add customer
+          </Button>
+        </Grid>
+      </StyledGrid>
       <EnhancedTable
         title="All customers"
         header={["Name", "Location", "Total Spent", "Rating"]}
