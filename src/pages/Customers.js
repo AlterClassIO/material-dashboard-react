@@ -72,6 +72,69 @@ const Customers = () => {
       spent: 2600,
       rating: 3.5
     },
+    { 
+      id: "004",
+      avatar: "/avatar.jpg",
+      name: "Leonardo DiCaprio",
+      email: "leonardo.dicaprio@alterclass.io",
+      location: "Los Angeles, USA",
+      spent: 3400,
+      rating: 4
+    },
+    { 
+      id: "005",
+      avatar: "/avatar.jpg",
+      name: "Matthew McConaughey",
+      email: "matthew.mcconaughey@alterclass.io",
+      location: "Los Angeles, USA",
+      spent: 600,
+      rating: 4.5
+    },
+    { 
+      id: "006",
+      avatar: "/avatar.jpg",
+      name: "Kevin Spacey",
+      email: "kevin.spacey@alterclass.io",
+      location: "Madrid, Spain",
+      spent: 5100,
+      rating: 3
+    },
+    { 
+      id: "007",
+      avatar: "/avatar.jpg",
+      name: "Natalie Portman",
+      email: "natalie.portman@alterclass.io",
+      location: "Lyon, France",
+      spent: 3500,
+      rating: 5
+    },
+    { 
+      id: "008",
+      avatar: "/avatar.jpg",
+      name: "Emma Stone",
+      email: "emma.stone@alterclass.io",
+      location: "Amsterdam, Netherlands",
+      spent: 1750,
+      rating: 4
+    },
+    { 
+      id: "009",
+      avatar: "/avatar.jpg",
+      name: "Uma Thurman",
+      email: "uma.thurman@alterclass.io",
+      location: "Roma, Italy",
+      spent: 8120,
+      rating: 5
+    },
+    { 
+      id: "010",
+      avatar: "/avatar.jpg",
+      name: "Jessica Chastain",
+      email: "jessica.chastain@alterclass.io",
+      location: "Shanghai, China",
+      spent: 1200,
+      rating: 4
+    },
   ];
   // method to render star rating
   const renderUser = (avatar, name, email) => (
