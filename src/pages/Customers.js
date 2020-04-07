@@ -47,7 +47,7 @@ const Customers = () => {
   const customers = [
     { 
       id: "001",
-      avatar: "/avatar.jpg",
+      avatar: "/avatar1.jpg",
       name: "Robert DeNiro",
       email: "robert.deniro@alterclass.io",
       location: "Los Angeles, USA",
@@ -56,7 +56,7 @@ const Customers = () => {
     },
     {
       id: "002",
-      avatar: "/avatar.jpg",
+      avatar: "/avatar1.jpg",
       name: "Al Pacino",
       email: "al.pacino@alterclass.io",
       location: "San Francisco, USA",
@@ -65,7 +65,7 @@ const Customers = () => {
     },
     { 
       id: "003",
-      avatar: "/avatar.jpg",
+      avatar: "/avatar1.jpg",
       name: "Pierre Niney",
       email: "pierre.niney@alterclass.io",
       location: "Paris, France",
@@ -74,34 +74,7 @@ const Customers = () => {
     },
     { 
       id: "004",
-      avatar: "/avatar.jpg",
-      name: "Leonardo DiCaprio",
-      email: "leonardo.dicaprio@alterclass.io",
-      location: "Los Angeles, USA",
-      spent: 3400,
-      rating: 4
-    },
-    { 
-      id: "005",
-      avatar: "/avatar.jpg",
-      name: "Matthew McConaughey",
-      email: "matthew.mcconaughey@alterclass.io",
-      location: "Los Angeles, USA",
-      spent: 600,
-      rating: 4.5
-    },
-    { 
-      id: "006",
-      avatar: "/avatar.jpg",
-      name: "Kevin Spacey",
-      email: "kevin.spacey@alterclass.io",
-      location: "Madrid, Spain",
-      spent: 5100,
-      rating: 3
-    },
-    { 
-      id: "007",
-      avatar: "/avatar.jpg",
+      avatar: "/avatar2.jpg",
       name: "Natalie Portman",
       email: "natalie.portman@alterclass.io",
       location: "Lyon, France",
@@ -109,8 +82,8 @@ const Customers = () => {
       rating: 5
     },
     { 
-      id: "008",
-      avatar: "/avatar.jpg",
+      id: "005",
+      avatar: "/avatar2.jpg",
       name: "Emma Stone",
       email: "emma.stone@alterclass.io",
       location: "Amsterdam, Netherlands",
@@ -118,8 +91,8 @@ const Customers = () => {
       rating: 4
     },
     { 
-      id: "009",
-      avatar: "/avatar.jpg",
+      id: "006",
+      avatar: "/avatar2.jpg",
       name: "Uma Thurman",
       email: "uma.thurman@alterclass.io",
       location: "Roma, Italy",
@@ -127,8 +100,35 @@ const Customers = () => {
       rating: 5
     },
     { 
+      id: "007",
+      avatar: "/avatar1.jpg",
+      name: "Leonardo DiCaprio",
+      email: "leonardo.dicaprio@alterclass.io",
+      location: "Los Angeles, USA",
+      spent: 3400,
+      rating: 4
+    },
+    { 
+      id: "008",
+      avatar: "/avatar1.jpg",
+      name: "Matthew McConaughey",
+      email: "matthew.mcconaughey@alterclass.io",
+      location: "Los Angeles, USA",
+      spent: 600,
+      rating: 4.5
+    },
+    { 
+      id: "009",
+      avatar: "/avatar1.jpg",
+      name: "Kevin Spacey",
+      email: "kevin.spacey@alterclass.io",
+      location: "Madrid, Spain",
+      spent: 5100,
+      rating: 3
+    },
+    { 
       id: "010",
-      avatar: "/avatar.jpg",
+      avatar: "/avatar2.jpg",
       name: "Jessica Chastain",
       email: "jessica.chastain@alterclass.io",
       location: "Shanghai, China",
