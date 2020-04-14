@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from 'styled-components';
 // @material-ui/core components
+import { grey } from '@material-ui/core/colors';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import ListSubheader from '@material-ui/core/ListSubheader';
@@ -10,6 +11,10 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
+import Divider from '@material-ui/core/Divider';
+import Avatar from '@material-ui/core/Avatar';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 // @material-ui/icons components
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import BarChartIcon from '@material-ui/icons/BarChart';
@@ -32,10 +37,10 @@ const DrawerContent = styled.div`
 `;
 const DrawerHeader = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
-  padding: 0 8px;
-  height: ${props => props.height}px;
+  justify-content: center;
+  padding: 8px;
 `;
 const NestedListItem = styled(ListItem)`
   padding-left: 56px;
@@ -55,6 +60,20 @@ const StyledLink = styled(Link)`
   &:focus, &:hover, &:visited, &:link, &:active {
     text-decoration: none;
   }
+`;
+const StyledDivider = styled(Divider)`
+  margin: 12px 0;
+`;
+const StyledAvatar = styled(Avatar)`
+  width: 50px;
+  height: 50px;
+  margin-bottom: 12px;
+`;
+const Name = styled(Typography)`
+  font-weight: 500;
+`;
+const Position = styled(Typography)`
+  color: ${grey[700]};
 `;
 
 // main component
@@ -199,15 +218,26 @@ const PersistentDrawer = (props) => {
     >
       <DrawerContent width={width}>
         <DrawerHeader height={height}>
-          <IconButton onClick={onClose}>
-            <ChevronLeftIcon />
-          </IconButton>
+          <Grid
+            container
+            justify="flex-end"
+            alignItems="center"
+          >
+            <IconButton onClick={onClose}>
+              <ChevronLeftIcon />
+            </IconButton>
+          </Grid>
+          <StyledAvatar alt="Marion Cotillard" src="/avatar.jpg" />
+          <Name variant="body1">Marion Cotillard</Name>
+          <Position variant="body2">Software Engineer</Position>
         </DrawerHeader>
+        <StyledDivider />
         {
           lists.map(list => (
             renderList(list.title, list.items)
           ))
         }
+        <StyledDivider />
       </DrawerContent>
     </StyledDrawer>
   );
