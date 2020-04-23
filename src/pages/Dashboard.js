@@ -12,7 +12,7 @@ import {
   Hint
 } from 'react-vis';
 // @material-ui/core components
-import { indigo, blueGrey } from '@material-ui/core/colors';
+import { indigo } from '@material-ui/core/colors';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
@@ -22,7 +22,6 @@ import CardContent from '@material-ui/core/CardContent';
 import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
-import Tooltip from '@material-ui/core/Tooltip';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -33,6 +32,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 // @material-ui/lab components
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
 // @material-ui/icons components
@@ -240,8 +240,11 @@ const Dashboard = () => {
       <Divider />
       <CardContent style={{height: "400px"}}>
         <FlexibleXYPlot>
-          <HorizontalGridLines />
+          <HorizontalGridLines
+            tickValues={[5, 10, 15, 20, 25, 30]}
+          />
           <XAxis
+            style={{ line: {stroke: "none"} }}
             tickValues={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]}
             tickFormat={v => {
               switch(v) {
@@ -262,6 +265,7 @@ const Dashboard = () => {
             }}
           />
           <YAxis
+            style={{ line: {stroke: "none"} }}
             tickValues={[0, 5, 10, 15, 20, 25, 30]}
             tickFormat={v => `${v}K`}
           />
@@ -277,7 +281,11 @@ const Dashboard = () => {
           />
           {
             graphHintVal ?
-              <Hint value={graphHintVal} />:
+              <Hint value={graphHintVal}>
+                <Paper style={{padding: "4px 12px"}}>
+                  <p style={{ color: "black" }}>Income: ${graphHintVal.y}K</p>
+                </Paper>
+              </Hint>:
               null
           }
         </FlexibleXYPlot>
