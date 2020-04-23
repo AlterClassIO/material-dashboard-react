@@ -30,7 +30,7 @@ import BottomDrawer from './BottomDrawer';
 // styled components
 const Container = styled(Paper)`
   margin-top: 24px;
-  ${props => props.bottomMargin ? "margin-bottom: 64px" : null};
+  ${props => props.bottommargin ? "margin-bottom: 64px" : null};
 `; 
 const StyledToolbar = styled(Toolbar)`
   display: flex;
@@ -116,7 +116,7 @@ const EnhancedTable = (props) => {
   // render component
   return (
     <>
-      <Container bottomMargin={selected.length > 0}>
+      <Container bottommargin={selected.length > 0 ? 1 : 0}>
         <StyledToolbar>
           <Title variant="h5" id="tableTitle" component="span">{title}</Title>
           <MenuIcon onClick={handleMenuClick} />
