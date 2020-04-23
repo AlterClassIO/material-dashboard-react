@@ -14,22 +14,22 @@ const Container = styled(Paper)`
   position: relative;
   display: flex;
   align-items: center;
-  background-color: ${props => props.bgColor ? props.bgColor : "rgba(255, 255, 255, 0.15)"};
+  background-color: ${props => props.bgcolor ? props.bgcolor : "rgba(255, 255, 255, 0.15)"};
   border-radius: 5px;
   width: ${props => props.wider ? '250px' : '180px'};
   transition: width 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 
   &:hover {
-    background-color: ${props => props.bgColor ? props.bgColor : "rgba(255, 255, 255, 0.25)"};
+    background-color: ${props => props.bgcolor ? props.bgcolor : "rgba(255, 255, 255, 0.25)"};
   }
 `;
 const SearchIconContainer = styled(SearchIcon)`
   position: absolute;
   margin: 0 16px;
-  ${props => props.color ? `color: ${props.color};` : null};
+  ${props => props.iconcolor ? `color: ${props.iconcolor};` : null};
 `;
 const StyledInput = styled(InputBase)`
-  color: ${props => props.color ? props.color: "#fff"};
+  color: ${props => props.inputcolor ? props.inputcolor: "#fff"};
   padding: 4px 8px;
   padding-left: calc(1rem + 32px);
   width: 100%;
@@ -65,15 +65,15 @@ const Search = (props) => {
       elevation={elevation}
       ref={containerEl}
       wider={wider ? 1 : 0}
-      bgColor={bgColor}
+      bgcolor={bgColor}
     >
-      <SearchIconContainer color={color}>
+      <SearchIconContainer iconcolor={color}>
         <SearchIcon  />
       </SearchIconContainer>
       <StyledInput 
         placeholder={placeholder}
         inputProps={{ 'aria-label': 'search' }}
-        color={color}
+        inputcolor={color}
       />
     </Container>
   );
