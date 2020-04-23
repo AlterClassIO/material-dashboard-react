@@ -22,7 +22,7 @@ const Content = styled.main`
   flex-grow: 1;
   margin-left: ${props => props.shifted ? '0' : `-${drawerWidth}px`};
   margin-top: ${drawerHeight}px;
-  padding: 24px;
+  padding: 24px 64px;
 `;
 
 // main component
@@ -46,9 +46,9 @@ const AdminLayout = (props) => {
       { /* MAIN CONTENT */ }
       <Content shifted={openDrawer ? 1 : 0}>
         <Switch>
-          <Route strict path={`/management/customers`} component={Customers} />
-          <Route strict path={`/management/projects`} component={Projects} />
-          <Route strict path={`/management/orders`} component={Orders} />
+          <Route path={`/management/customers`} component={Customers} />
+          <Route path={`/management/projects`} component={Projects} />
+          <Route path={`/management/orders`} component={Orders} />
           <Route path={`/settings`} component={Settings} />
           <Route path={`/dashboard`} component={Dashboard} />
         </Switch>
