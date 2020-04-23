@@ -238,8 +238,8 @@ const Settings = () => {
           <Divider />
           <CardContent>
             {
-              items.map(item => (
-                <SubscriptionCard>
+              items.map((item, id) => (
+                <SubscriptionCard key={id}>
                   <CardContent>
                     <Grid container spacing={4} key={item.title}>
                       <LeftGridItem item xs={4}>
