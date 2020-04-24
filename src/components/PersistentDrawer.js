@@ -22,7 +22,6 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import HomeIcon from '@material-ui/icons/Home';
 import SettingsIcon from '@material-ui/icons/Settings';
-import LockOpenIcon from '@material-ui/icons/LockOpen';
 import ListIcon from '@material-ui/icons/List';
 import AppsIcon from '@material-ui/icons/Apps';
 import CodeIcon from '@material-ui/icons/Code';
@@ -195,8 +194,7 @@ const PersistentDrawer = (props) => {
           ],
           open: openSettings,
           handleClick: handleClickSettings
-        },
-        { icon: <LockOpenIcon />, text: "Authentication", link: 'authentication' }
+        }
       ]
     },
     {

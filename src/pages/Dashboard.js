@@ -3,7 +3,7 @@ import styled from 'styled-components';
 // react-vis
 import {
   FlexibleXYPlot,
-  XYPlot,
+  FlexibleWidthXYPlot,
   XAxis,
   YAxis,
   HorizontalGridLines,
@@ -185,7 +185,7 @@ const Dashboard = () => {
                   alignItems="center"
                   spacing={3}
                 >
-                  <Grid item xs={9}>
+                  <Grid item xs={10}>
                     <Typography variant="overline" component="h3" gutterBottom={true}>{item.title}</Typography>
                     <Grid
                       container
@@ -208,7 +208,7 @@ const Dashboard = () => {
                       }
                     </Grid>
                   </Grid>
-                  <AvatarContainer item xs={3}>
+                  <AvatarContainer item xs={2}>
                     {
                       item.icon && (
                         <StyledAvatar>
@@ -292,238 +292,232 @@ const Dashboard = () => {
       </CardContent>
     </Card>
   );
-  const renderPageViewsGraph = () => (
-    <Card>
-      <CardHeader
-        action={
-          <GraphAction variant="h5" component="h3">{pageViews}</GraphAction>
-        }
-        title={
-          <GraphTitle variant="h5">Page views / sec</GraphTitle>
-        }
-      />
-      <Divider />
-      <CardContent style={{height: "400px", padding: 0}}>
-        <XYPlot height={140} width={250} margin={{left: 10, right: 10, top: 20, bottom: 0}}>
-          <VerticalBarSeries
-            data={lastPageViews}
-            color="#3f51b5"
-            barWidth={.45}
-          />
-        </XYPlot>
-        <List>
-          <ListItem>
-            <ListItemText primary="/cart" />
-            <ListItemSecondaryAction>
-              37
-            </ListItemSecondaryAction>
-          </ListItem>
-          <Divider />
-          <ListItem>
-            <ListItemText primary="/cart/checkout" />
-            <ListItemSecondaryAction>
-              21
-            </ListItemSecondaryAction>
-          </ListItem>
-          <Divider />
-          <ListItem>
-            <ListItemText primary="/contact-us" />
-            <ListItemSecondaryAction>
-              12
-            </ListItemSecondaryAction>
-          </ListItem>
-          <Divider />
-          <ListItem>
-            <ListItemText primary="/blog" />
-            <ListItemSecondaryAction>
-              8
-            </ListItemSecondaryAction>
-          </ListItem>
-          <Divider />
-        </List>
-        <Grid
-          container
-          justify="flex-end"
-          alignItems="center"
-        >
-          <Button 
-            endIcon={<NavigateNextIcon />}
-            style={{ marginRight: "10px" }}
+  const renderPageViewsGraph = () => {
+    const items = [
+      { text: '/cart', number: 37 },
+      { text: '/cart/checkout', number: 21 },
+      { text: '/contact-us', number: 12 },
+      { text: '/blog', number: 8 },
+    ];
+    return (
+      <Card>
+        <CardHeader
+          action={
+            <GraphAction variant="h5" component="h3">{pageViews}</GraphAction>
+          }
+          title={
+            <GraphTitle variant="h5">Page views / sec</GraphTitle>
+          }
+        />
+        <Divider />
+        <CardContent style={{height: "400px", padding: 0}}>
+          <div>
+            <FlexibleWidthXYPlot height={140} margin={{left: 10, right: 10, top: 20, bottom: 0}}>
+              <VerticalBarSeries
+                data={lastPageViews}
+                color="#3f51b5"
+                barWidth={.5}
+              />
+            </FlexibleWidthXYPlot>
+          </div>
+          <List>
+            {
+              items.map(item => (
+                <React.Fragment key={item.text}>
+                  <ListItem>
+                    <ListItemText primary={item.text} />
+                    <ListItemSecondaryAction>
+                      {item.number}
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                  <Divider />
+                </React.Fragment>
+              ))
+            }
+          </List>
+          <Grid
+            container
+            justify="flex-end"
+            alignItems="center"
           >
-            See all
-          </Button>
-        </Grid>
-      </CardContent>
-    </Card>
-  );
-  const renderTasks = () => (
-    <Card>
-      <CardHeader
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title={
-          <GraphTitle variant="h5">Team Tasks</GraphTitle>
-        }
-      />
-      <Divider />
-      <CardContent style={{padding: 0}}>
-        <List>
-          <ListItem>
-            <ListItemText primary="Update API calls" secondary="1 days remaining" />
-            <ListItemAvatar>
-              <StyledAvatarGroup spacing="small">
-                <Avatar src="/avatar.jpg" />
-                <Avatar src="/avatar1.jpg" />
-                <Avatar src="/avatar2.jpg" />
-              </StyledAvatarGroup>
-            </ListItemAvatar>
-            <ListItemSecondaryAction>
-              <IconButton><LaunchIcon /></IconButton>
-            </ListItemSecondaryAction>
-          </ListItem>
-          <Divider />
-          <ListItem>
-            <ListItemText primary="Set up database" secondary="2 days remaining" />
-            <ListItemAvatar>
-              <StyledAvatarGroup spacing="small">
-                <Avatar src="/avatar1.jpg" />
-                <Avatar src="/avatar2.jpg" />
-              </StyledAvatarGroup>
-            </ListItemAvatar>
-            <ListItemSecondaryAction>
-              <IconButton><LaunchIcon /></IconButton>
-            </ListItemSecondaryAction>
-          </ListItem>
-          <Divider />
-          <ListItem>
-            <ListItemText primary="Bug fixing" secondary="N/A" />
-            <ListItemAvatar>
-              <StyledAvatarGroup spacing="small">
-                <Avatar src="/avatar.jpg" />
-                <Avatar src="/avatar1.jpg" />
-                <Avatar src="/avatar2.jpg" />
-              </StyledAvatarGroup>
-            </ListItemAvatar>
-            <ListItemSecondaryAction>
-              <IconButton><LaunchIcon /></IconButton>
-            </ListItemSecondaryAction>
-          </ListItem>
-          <Divider />
-          <ListItem>
-            <ListItemText primary="Release v1.0 Beta" secondary="N/A" />
-            <ListItemAvatar>
-              <StyledAvatarGroup spacing="small">
-                <Avatar src="/avatar.jpg" />
-                <Avatar src="/avatar1.jpg" />
-                <Avatar src="/avatar2.jpg" />
-              </StyledAvatarGroup>
-            </ListItemAvatar>
-            <ListItemSecondaryAction>
-              <IconButton><LaunchIcon /></IconButton>
-            </ListItemSecondaryAction>
-          </ListItem>
-          <Divider />
-          <ListItem>
-            <ListItemText primary="GDPR compliance" secondary="N/A" />
-            <ListItemAvatar>
-              <StyledAvatarGroup spacing="small">
-                <Avatar src="/avatar.jpg" />
-              </StyledAvatarGroup>
-            </ListItemAvatar>
-            <ListItemSecondaryAction>
-              <IconButton><LaunchIcon /></IconButton>
-            </ListItemSecondaryAction>
-          </ListItem>
-          <Divider />
-        </List>
-        <Grid
-          container
-          justify="flex-end"
-          alignItems="center"
-        >
-          <Button 
-            endIcon={<NavigateNextIcon />}
-            style={{ margin: "10px" }}
+            <Button 
+              endIcon={<NavigateNextIcon />}
+              style={{ marginRight: "10px" }}
+            >
+              See all
+            </Button>
+          </Grid>
+        </CardContent>
+      </Card>
+    );
+  };
+  const renderTasks = () => {
+    const tasks = [
+      { 
+        primary: "Update API calls",
+        secondary: "1 days remaining",
+        avatars: ["/avatar.jpg", "/avatar1.jpg", "/avatar2.jpg"]
+      },
+      { 
+        primary: "Set up database",
+        secondary: "2 days remaining",
+        avatars: ["/avatar1.jpg", "/avatar2.jpg"]
+      },
+      { 
+        primary: "Bug fixing",
+        secondary: "N/A",
+        avatars: ["/avatar.jpg", "/avatar1.jpg", "/avatar2.jpg"]
+      },
+      { 
+        primary: "Release v1.0 Beta",
+        secondary: "N/A",
+        avatars: ["/avatar.jpg", "/avatar1.jpg", "/avatar2.jpg"]
+      },
+      { 
+        primary: "GDPR compliance",
+        secondary: "N/A",
+        avatars: ["/avatar.jpg"]
+      },
+    ];
+    return (
+      <Card>
+        <CardHeader
+          action={
+            <IconButton aria-label="settings">
+              <MoreVertIcon />
+            </IconButton>
+          }
+          title={
+            <GraphTitle variant="h5">Team Tasks</GraphTitle>
+          }
+        />
+        <Divider />
+        <CardContent style={{padding: 0}}>
+          <List>
+            {
+              tasks.map(task => (
+                <React.Fragment key={task.primary}>
+                  <ListItem>
+                    <ListItemText primary={task.primary} secondary={task.secondary} />
+                    <ListItemAvatar>
+                      <StyledAvatarGroup spacing="small">
+                        {
+                          task.avatars.map(avatar => (
+                            <Avatar src={avatar} key={avatar} />
+                          ))
+                        }
+                      </StyledAvatarGroup>
+                    </ListItemAvatar>
+                    <ListItemSecondaryAction>
+                      <IconButton><LaunchIcon /></IconButton>
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                  <Divider />
+                </React.Fragment>
+              ))
+            }
+          </List>
+          <Grid
+            container
+            justify="flex-end"
+            alignItems="center"
           >
-            See all
-          </Button>
-        </Grid>
-      </CardContent>
-    </Card>
-  );
-  const renderProjects = () => (
-    <Card>
-      <CardHeader
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title={
-          <GraphTitle variant="h5">Latest Projects</GraphTitle>
-        }
-      />
-      <Divider />
-      <CardContent style={{padding: 0}}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Owner</TableCell>
-              <TableCell>Amount</TableCell>
-              <TableCell>Technologies</TableCell>
-              <TableCell>Due Date</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            <TableRow>
-              <TableCell>Dashboard Design</TableCell>
-              <TableCell><Avatar src="/avatar.jpg" /></TableCell>
-              <TableCell>$12,500</TableCell>
-              <TableCell>ReactJS, MongoDB, Node.js, ...</TableCell>
-              <TableCell>May 04, 2020</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>iOS App Dev</TableCell>
-              <TableCell><Avatar src="/avatar1.jpg" /></TableCell>
-              <TableCell>$2,800</TableCell>
-              <TableCell>ReactNative</TableCell>
-              <TableCell>May 11, 2020</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Database Setup</TableCell>
-              <TableCell><Avatar src="/avatar2.jpg" /></TableCell>
-              <TableCell>$7,350</TableCell>
-              <TableCell>MongoDB</TableCell>
-              <TableCell>May 23, 2020</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>API Design</TableCell>
-              <TableCell><Avatar src="/avatar1.jpg" /></TableCell>
-              <TableCell>$4,200</TableCell>
-              <TableCell>Node.js, ExpressJS</TableCell>
-              <TableCell>June 02, 2020</TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-        <Grid
-          container
-          justify="flex-end"
-          alignItems="center"
-        >
-          <Button 
-            endIcon={<NavigateNextIcon />}
-            style={{ margin: "10px" }}
+            <Button 
+              endIcon={<NavigateNextIcon />}
+              style={{ margin: "10px" }}
+            >
+              See all
+            </Button>
+          </Grid>
+        </CardContent>
+      </Card>
+    );
+  };
+  const renderProjects = () => {
+    const projects = [
+      {
+        name: "Dashboard Design",
+        avatar: "/avatar.jpg",
+        amount: "$12,500",
+        tech: "ReactJS, MongoDB, Node.js, ...",
+        date: "May 04, 2020",
+      },
+      {
+        name: "iOS App Dev",
+        avatar: "/avatar1.jpg",
+        amount: "$2,800",
+        tech: "ReactNative",
+        date: "May 11, 2020",
+      },
+      {
+        name: "Database Setup",
+        avatar: "/avatar2.jpg",
+        amount: "$7,350",
+        tech: "MongoDB",
+        date: "May 23, 2020",
+      },
+      {
+        name: "API Design",
+        avatar: "/avatar.jpg",
+        amount: "$4,200",
+        tech: "Node.js, Express.js",
+        date: "June 02, 2020",
+      },
+    ];
+    return (
+      <Card>
+        <CardHeader
+          action={
+            <IconButton aria-label="settings">
+              <MoreVertIcon />
+            </IconButton>
+          }
+          title={
+            <GraphTitle variant="h5">Latest Projects</GraphTitle>
+          }
+        />
+        <Divider />
+        <CardContent style={{padding: 0}}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Name</TableCell>
+                <TableCell>Owner</TableCell>
+                <TableCell>Amount</TableCell>
+                <TableCell>Technologies</TableCell>
+                <TableCell>Due Date</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {
+                projects.map(project => (
+                  <TableRow key={project.name}>
+                    <TableCell>{project.name}</TableCell>
+                    <TableCell><Avatar src={project.avatar} /></TableCell>
+                    <TableCell>{project.amount}</TableCell>
+                    <TableCell>{project.tech}</TableCell>
+                    <TableCell>{project.date}</TableCell>
+                  </TableRow>
+                ))
+              }
+            </TableBody>
+          </Table>
+          <Grid
+            container
+            justify="flex-end"
+            alignItems="center"
           >
-            See all
-          </Button>
-        </Grid>
-      </CardContent>
-    </Card>
-  );
+            <Button 
+              endIcon={<NavigateNextIcon />}
+              style={{ margin: "10px" }}
+            >
+              See all
+            </Button>
+          </Grid>
+        </CardContent>
+      </Card>
+    );
+  };
 
   return (
     <>
@@ -534,8 +528,8 @@ const Dashboard = () => {
         justify="space-between"
         spacing={3}
       >
-        <Grid item xs={12} lg={3}>{renderPageViewsGraph()}</Grid>
-        <Grid item xs={12} lg={9}>{renderPerformanceGraph()}</Grid>
+        <Grid item xs={12} md={4} lg={3}>{renderPageViewsGraph()}</Grid>
+        <Grid item xs={12} md={8} lg={9}>{renderPerformanceGraph()}</Grid>
       </Grid>
       <Grid
         container

@@ -38,8 +38,9 @@ const StyledSearchButton = styled(Button)`
 const starIconStyles = css`
   color: ${amber[400]};
 `;
-const StyledStarIcon = styled(StarIcon)`${starIconStyles}`;
+const StyledStarIcon = styled(StarIcon)`${starIconStyles};`;
 const StyledStarHalfIcon = styled(StarHalfIcon)`${starIconStyles}`;
+const StyledStarBorderIcon = styled(StarBorderIcon)`${starIconStyles}`;
 
 const Customers = () => {
   // state
@@ -154,9 +155,19 @@ const Customers = () => {
       stars.push(<StyledStarHalfIcon />);
     }
     while (stars.length < 5) {
-      stars.push(<StarBorderIcon />);
+      stars.push(<StyledStarBorderIcon />);
     }
-    return stars;
+    return (
+      <Grid container wrap="nowrap">
+        {
+          stars.map(star => (
+            <Grid item>
+              {star}
+            </Grid>
+          ))
+        }
+      </Grid>
+    );
   };
   // render component
   const renderHeader = () => (

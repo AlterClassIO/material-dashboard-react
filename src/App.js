@@ -20,7 +20,7 @@ function App() {
       <GlobalStyles />
       <Router>
         <Route path="/" component={Admin} />
-        <Redirect from="/" to="/dashboard" />
+        <Redirect strict from="/" to="/dashboard" />
       </Router>
     </ThemeProvider>
   );

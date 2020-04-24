@@ -9,6 +9,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import Hidden from '@material-ui/core/Hidden';
 // @material-ui/icons components
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/Notifications';
@@ -90,63 +91,76 @@ const TopBar = (props) => {
   const renderRightAppBarContent = () => (
     <GridItem>
       <GridContainer>
-        <GridItem>
-          <Search />
-        </GridItem>
-        <GridItem>
-          <StyledButton
-            color="inherit"
-            onClick={e => setNotificationsEl(e.currentTarget)}
-          >
-            <Badge
-              badgeContent={4}
-              color="secondary"
+        <Hidden smDown>
+          <GridItem>
+            <Search />
+          </GridItem>
+        </Hidden>
+        <Hidden xsDown>
+          <GridItem>
+            <StyledButton
+              color="inherit"
+              onClick={e => setNotificationsEl(e.currentTarget)}
             >
-              <NotificationsIcon />
-            </Badge>
-          </StyledButton>
-          <NotificationsPopover 
-            anchorEl={notificationsEl}
-            open={notificationsOpen}
-            onClose={() => setNotificationsEl(null)}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'right',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-          />
-        </GridItem>
+              <Badge
+                badgeContent={4}
+                color="secondary"
+              >
+                <NotificationsIcon />
+              </Badge>
+            </StyledButton>
+            <NotificationsPopover 
+              anchorEl={notificationsEl}
+              open={notificationsOpen}
+              onClose={() => setNotificationsEl(null)}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'right',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+            />
+          </GridItem>
+          <GridItem>
+            <StyledButton
+              color="inherit"
+              onClick={e => setActionsEl(e.currentTarget)}
+            >
+              <AppsIcon />
+            </StyledButton>
+            <ActionsPopover 
+              anchorEl={actionsEl}
+              open={actionsOpen}
+              onClose={() => setActionsEl(null)}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'right',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+            />
+          </GridItem>
+        </Hidden>
         <GridItem>
-          <StyledButton
-            color="inherit"
-            onClick={e => setActionsEl(e.currentTarget)}
-          >
-            <AppsIcon />
-          </StyledButton>
-          <ActionsPopover 
-            anchorEl={actionsEl}
-            open={actionsOpen}
-            onClose={() => setActionsEl(null)}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'right',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-          />
-        </GridItem>
-        <GridItem>
-          <ProfileButton
-            text="Hi, Marion"
-            alt="Marion Cotillard"
-            src="/avatar.jpg"
-            onClick={e => setProfileEl(e.currentTarget)}
-          />
+          <Hidden smDown>
+            <ProfileButton
+              text="Hi, Marion"
+              alt="Marion Cotillard"
+              src="/avatar.jpg"
+              onClick={e => setProfileEl(e.currentTarget)}
+            />
+          </Hidden>
+          <Hidden mdUp>
+            <ProfileButton
+              alt="Marion Cotillard"
+              src="/avatar.jpg"
+              onClick={e => setProfileEl(e.currentTarget)}
+            />
+          </Hidden>
           <ProfilePopover 
             anchorEl={profileEl}
             open={profileOpen}
