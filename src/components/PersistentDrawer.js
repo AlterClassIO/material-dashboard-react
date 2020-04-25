@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 // @material-ui/core components
 import { grey } from '@material-ui/core/colors';
 import Drawer from '@material-ui/core/Drawer';
@@ -15,6 +15,7 @@ import Divider from '@material-ui/core/Divider';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 // @material-ui/icons components
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import BarChartIcon from '@material-ui/icons/BarChart';
@@ -37,6 +38,12 @@ const DrawerContent = styled.div`
 const DrawerHeader = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+`;
+const DrawerFooter = styled.div`
+  display: flex;
   align-items: center;
   justify-content: center;
   padding: 8px;
@@ -78,6 +85,19 @@ const Position = styled(Typography)`
 const Logo = styled.img`
   display: block;
   margin: auto;
+`;
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+`;
+const ReactLogo = styled.img`
+  width: 24px;
+  animation: ${rotate} 2s linear infinite;
 `;
 
 // main component
@@ -259,6 +279,17 @@ const PersistentDrawer = (props) => {
           ))
         }
         <StyledDivider />
+        <DrawerFooter>
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<ReactLogo src="react.svg" />}
+            href="https://www.alterclass.io"
+          >
+            
+            Learn ReactJS
+          </Button>
+        </DrawerFooter>
       </DrawerContent>
     </StyledDrawer>
   );
