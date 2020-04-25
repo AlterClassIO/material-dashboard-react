@@ -66,6 +66,7 @@ const StyledDivider = styled(Divider)`
 const StyledAvatar = styled(Avatar)`
   width: 50px;
   height: 50px;
+  margin: auto;
   margin-bottom: 12px;
 `;
 const Name = styled(Typography)`
@@ -73,6 +74,10 @@ const Name = styled(Typography)`
 `;
 const Position = styled(Typography)`
   color: ${grey[700]};
+`;
+const Logo = styled.img`
+  display: block;
+  margin: auto;
 `;
 
 // main component
@@ -218,16 +223,34 @@ const PersistentDrawer = (props) => {
         <DrawerHeader height={height}>
           <Grid
             container
-            justify="flex-end"
             alignItems="center"
+            justify="flex-end"
           >
             <IconButton onClick={onClose}>
               <ChevronLeftIcon />
             </IconButton>
           </Grid>
-          <StyledAvatar alt="Marion Cotillard" src="/avatar.jpg" />
-          <Name variant="body1">Marion Cotillard</Name>
-          <Position variant="body2">Software Engineer</Position>
+          <Grid
+            container
+            direction="column"
+            alignItems="center"
+            spacing={2}
+          >
+            <Grid item xs={12}>
+              <a href="https://www.alterclass.io">
+                <Logo
+                  src="logo.png"
+                  alt="logo"
+                  width="80%"
+                />
+              </a>
+            </Grid>
+            <Grid item xs={12}>
+              <StyledAvatar alt="Marion Cotillard" src="/avatar.jpg" />
+              <Name variant="body1">Marion Cotillard</Name>
+              <Position variant="body2">Software Engineer</Position>
+            </Grid>
+          </Grid>
         </DrawerHeader>
         <StyledDivider />
         {
