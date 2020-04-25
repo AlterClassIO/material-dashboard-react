@@ -6,4 +6,4 @@
 ### Initial Development Release
 
 - Added Material-UI as base framework
-- Create basic admin dashboard
+- Created basic admin dashboard
