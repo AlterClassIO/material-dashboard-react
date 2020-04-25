@@ -1,5 +1,7 @@
 # Material Dashboard React
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/b109452a-f701-45cb-8699-65f2ed1b2638/deploy-status)](https://app.netlify.com/sites/material-dashboard-react/deploys)
+
 ## Table of Contents
 
 * [Demo](#demo)
