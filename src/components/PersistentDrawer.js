@@ -24,7 +24,6 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import HomeIcon from '@material-ui/icons/Home';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ListIcon from '@material-ui/icons/List';
-import AppsIcon from '@material-ui/icons/Apps';
 import CodeIcon from '@material-ui/icons/Code';
 
 // styled components
@@ -225,7 +224,6 @@ const PersistentDrawer = (props) => {
     {
       title: "Support",
       items: [
-        { icon: <AppsIcon />, text: "Components", link: 'components' },
         { icon: <CodeIcon />, text: "Getting started", link: 'getting-started' },
         { icon: <ListIcon />, text: "Changelog", link: 'changelog' }
       ]
