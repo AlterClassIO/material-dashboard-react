@@ -1,12 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
 // @material-ui/core components
 import Typography from '@material-ui/core/Typography';
-// core components
-// ...
-
-// styled components
-// ...
 
 // main component
 const Changelog = () => {
