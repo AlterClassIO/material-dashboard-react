@@ -11,6 +11,7 @@ import Projects from '../pages/Projects';
 import Orders from '../pages/Orders';
 import Dashboard from "../pages/Dashboard";
 import Changelog from "../pages/Changelog";
+import GettingStarted from "../pages/GettingStarted";
 
 const drawerWidth = 240;
 const drawerHeight = 64;
@@ -47,6 +48,7 @@ const AdminLayout = (props) => {
       { /* MAIN CONTENT */ }
       <Content shifted={openDrawer ? 1 : 0}>
         <Switch>
+          <Route path={`/getting-started`} component={GettingStarted} />
           <Route path={`/changelog`} component={Changelog} />
           <Route path={`/management/customers`} component={Customers} />
           <Route path={`/management/projects`} component={Projects} />
