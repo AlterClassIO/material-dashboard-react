@@ -2,15 +2,12 @@ import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import hljs from 'highlight.js';
-import '../../node_modules/highlight.js/styles/monokai-sublime.css';
-
-const Pre = styled.pre`
-  border-radius: 5px;
-  padding: 16px;
-`;
+import 'highlight.js/styles/monokai-sublime.css';
 
 const Code = styled.code`
   font-size: 0.9rem;
+  border-radius: 5px;
+  padding: 16px;
 `;
 
 // main component
@@ -19,17 +16,19 @@ const CodeHighlighter = ({ children, language }) => {
 
   useEffect(() => {
     if (codeRef) {
-      console.log(codeRef);
       hljs.highlightBlock(codeRef.current);
     }
   }, [codeRef]);
 
   return (
-    <Pre ref={codeRef}>
-      <Code className={language}>
+    <pre>
+      <Code 
+        ref={codeRef}
+        className={language}
+      >
         {children}
       </Code>
-    </Pre>
+    </pre>
   );
 };
 
