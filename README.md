@@ -14,7 +14,7 @@
 
 https://material-dashboard-react.netlify.app/
 
-![product](https://user-images.githubusercontent.com/4352286/80286895-6e7aac00-872e-11ea-8121-d258a8c2c928.gif)
+![product](https://user-images.githubusercontent.com/4352286/80474817-39e23c80-8948-11ea-99f2-529b43814781.gif)
 
 ## Quick Start
 
